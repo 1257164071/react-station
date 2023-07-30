@@ -1,7 +1,6 @@
 
 import '../css/App.scss'
 
-
 import { Link } from 'react-router-dom'
 import { Right } from '@nutui/icons-react'
 
@@ -49,7 +48,7 @@ const Home = () => {
                         <li>订单管理</li>
                         <ul>
                             <li key="userctrl5">
-                                <Link key="userctr3" to="/ffdksfjds">
+                                <Link key="userctr3" to="/orders">
                                     到店订单
                                 </Link>
                                 <Right color="#979797" name="right"></Right>

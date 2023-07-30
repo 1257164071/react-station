@@ -161,7 +161,7 @@ export default function () {
                 onSearch={submit}
                 placeholder="请输入手机号搜索"
             />
-            <LisItem></LisItem>
+            <LisItem />
 
 
         </>

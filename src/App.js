@@ -144,14 +144,16 @@ import '@nutui/nutui-react/dist/style.css'
 import Home from './pages/Home'
 import UserList from './pages/users/Users.js'
 import Recharge from './pages/users/Recharge.js'
+import Orders from './pages/orders/Orders.js'
 export default function App(){
     const logo = ''
     return (
-        <div className="App">
+        <div className="App"  style={{ height: "100%" }}>
             <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/userlist" element={<UserList />} />
-                  <Route path="/jecz" element={<Recharge />} />
+                <Route path="/jecz" element={<Recharge />} />
+                <Route path="/orders" element={<Orders />} />
             </Routes>
         </div>
     )
