@@ -137,16 +137,32 @@ export default function Gallery(){
 
 */
 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { sculptureList } from './data.js';
-import { Routes, Route, Link } from "react-router-dom"
+import { Routes, Route, Link, useLocation } from "react-router-dom"
 import '@nutui/nutui-react/dist/style.css'
 import Home from './pages/Home'
 import UserList from './pages/users/Users.js'
 import Recharge from './pages/users/Recharge.js'
 import Orders from './pages/orders/Orders.js'
+import request from './utils/axios'
+
 export default function App(){
-    const logo = ''
+    const logo = '';
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+
+    useEffect(() => {
+        if(queryParams.get('token')){
+            localStorage.setItem('token', queryParams.get('token'));
+            console.log(queryParams.get('token'),'setsuccess')
+        }
+
+        request.get("/wechatapinew/login/getopenid").then(({data})=>{
+            console.log(data)
+        })
+
+    });
     return (
         <div className="App"  style={{ height: "100%" }}>
             <Routes>

@@ -130,7 +130,6 @@ const List = () => {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }

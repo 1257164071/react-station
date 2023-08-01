@@ -44,7 +44,7 @@ const Home = () => {
                             </li>
                         </ul>
                     </ol>
-                    <ol key="userctrl1">
+                    <ol key="userctrl2">
                         <li>订单管理</li>
                         <ul>
                             <li key="userctrl5">
@@ -61,7 +61,7 @@ const Home = () => {
                             </li>
                         </ul>
                     </ol>
-                    <ol key="userctrl1">
+                    <ol key="userctrl3">
                         <li>财务管理</li>
                         <ul>
                             <li key="userctrl5">
