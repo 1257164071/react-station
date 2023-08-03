@@ -3,9 +3,26 @@ import '../css/App.scss'
 
 import { Link } from 'react-router-dom'
 import { Right } from '@nutui/icons-react'
+import request from '../utils/axios'
+import { useState,useEffect } from 'react';
 
 const Home = () => {
     const logo = "http://hjw.hj0539.com/static/images/left-top.png"
+    const [station, setStation] = useState([]);
+
+    const getData = async ()=>{
+        const res = await request.get("/station/station/index",{"params":{token:localStorage.getItem("token")}});
+        return res;
+    }
+
+    useEffect(() => {
+        getData().then((res)=>{
+            setStation(res['data'])
+        })
+
+    },[]);
+
+
     return (
         <>
 
@@ -16,6 +33,7 @@ const Home = () => {
                     </div>
                     <div className="info">
                         <h1>海江网 - 站长后台管理</h1>
+                        <h3>{station.name}</h3>
                     </div>
                 </div>
 

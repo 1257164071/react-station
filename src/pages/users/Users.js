@@ -3,122 +3,52 @@ import { Left, Share, Close } from '@nutui/icons-react'
 import { useNavigate } from 'react-router-dom';
 import { SearchBar, Button } from '@nutui/nutui-react';
 import "./users.scss"
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import request from '../../utils/axios'
 
 
-function LisItem() {
-
+function LisItem({users}) {
     return (
         <>
             <div className="listIndex">
-                <div className="listItem">
-                    <div className="userinfo">
-                        <div className="info_left">
-                                <img src="http://hjw.hj0539.com/static/images/left-top.png"></img>
-                            <div className="left_info">
-                                <div>海之水</div>
-                                <div>18265197620</div>
+                {users.map(user=>
+                    <div className="listItem">
+                        <div className="userinfo">
+                            <div className="info_left">
+                                    <img src={user.avatar}></img>
+                                <div className="left_info">
+                                    <div>{user.nickname}</div>
+                                    <div>{user.telephone}</div>
+                                </div>
+                            </div>
+                            <div className="info_right">
+                                <Button type="default" size="small">余额充值</Button>
+                                <Button type="default" size="small">积分充值</Button>
                             </div>
                         </div>
-                        <div className="info_right">
-                            <Button type="default" size="small">余额充值</Button>
-                            <Button type="default" size="small">积分充值</Button>
-                        </div>
-                    </div>
-                    <div className="user_detail">
-                        <div>
-                            <span>交易额</span> 0.00
-                        </div>
-                        <div>
-                            <span>积分数</span> 0
-                        </div>
-                        <div>
-                            <span>会员状态</span> 付费会员
-                        </div>
+                        <div className="user_detail">
+                            <div>
+                                <span>交易额</span> {user.jye}
+                            </div>
+                            <div>
+                                <span>积分数</span> {user.integral}
+                            </div>
+                            <div>
+                                <span>会员截止</span> {user.hyzt}
+                            </div>
 
-                        <div>
-                            <span>订单数</span> 0
-                        </div>
-                        <div>
-                            <span>余额数</span> 0
-                        </div>
-                        <div>
-                            <span>实名状态</span> 未实名
-                        </div>
-                    </div>
-                </div>
-                <div className="listItem">
-                    <div className="userinfo">
-                        <div className="info_left">
-                            <img src="http://hjw.hj0539.com/static/images/left-top.png"></img>
-                            <div className="left_info">
-                                <div>海之水</div>
-                                <div>18265197620</div>
+                            <div>
+                                <span>订单数</span> {user.dys}
+                            </div>
+                            <div>
+                                <span>余额数</span> {user.balance}
+                            </div>
+                            <div>
+                                <span>实名状态</span> {user.smzt}
                             </div>
                         </div>
-                        <div className="info_right">
-                            <Button type="default" size="small">余额充值</Button>
-                            <Button type="default" size="small">积分充值</Button>
-                        </div>
                     </div>
-                    <div className="user_detail">
-                        <div>
-                            <span>交易额</span> 0.00
-                        </div>
-                        <div>
-                            <span>积分数</span> 0
-                        </div>
-                        <div>
-                            <span>会员状态</span> 付费会员
-                        </div>
-
-                        <div>
-                            <span>订单数</span> 0
-                        </div>
-                        <div>
-                            <span>余额数</span> 0
-                        </div>
-                        <div>
-                            <span>实名状态</span> 未实名
-                        </div>
-                    </div>
-                </div>
-                <div className="listItem">
-                    <div className="userinfo">
-                        <div className="info_left">
-                            <img src="http://hjw.hj0539.com/static/images/left-top.png"></img>
-                            <div className="left_info">
-                                <div>海之水</div>
-                                <div>18265197620</div>
-                            </div>
-                        </div>
-                        <div className="info_right">
-                            <Button type="default" size="small">余额充值</Button>
-                            <Button type="default" size="small">积分充值</Button>
-                        </div>
-                    </div>
-                    <div className="user_detail">
-                        <div>
-                            <span>交易额</span> 0.00
-                        </div>
-                        <div>
-                            <span>积分数</span> 0
-                        </div>
-                        <div>
-                            <span>会员状态</span> 付费会员
-                        </div>
-
-                        <div>
-                            <span>订单数</span> 0
-                        </div>
-                        <div>
-                            <span>余额数</span> 0
-                        </div>
-                        <div>
-                            <span>实名状态</span> 未实名
-                        </div>
-                    </div>
-                </div>
+                )}
 
             </div>
         </>
@@ -132,9 +62,21 @@ export default function () {
         console.log(val)
         setSearch(val)
     }
-    function submit() {
-        console.log('asda')
+    const [users, setUsers] = useState([]);
+    const getList = function (){
+        request.get("/station/station/users",{"params":{token:localStorage.getItem("token"),'telephone':search}}).then((response)=>{
+            setUsers(response['data']['data'])
+        })
     }
+    function submit() {
+        console.log('sdfds')
+        getList();
+    }
+
+    useEffect(()=>{
+        getList();
+    },[])
+
     return (
         <>
             <NavBar
@@ -161,7 +103,7 @@ export default function () {
                 onSearch={submit}
                 placeholder="请输入手机号搜索"
             />
-            <LisItem />
+            <LisItem users={users}/>
 
 
         </>

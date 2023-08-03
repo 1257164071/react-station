@@ -155,14 +155,8 @@ export default function App(){
     useEffect(() => {
         if(queryParams.get('token')){
             localStorage.setItem('token', queryParams.get('token'));
-            console.log(queryParams.get('token'),'setsuccess')
         }
-
-        request.get("/wechatapinew/login/getopenid").then(({data})=>{
-            console.log(data)
-        })
-
-    });
+    },[]);
     return (
         <div className="App"  style={{ height: "100%" }}>
             <Routes>
