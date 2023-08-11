@@ -1,0 +1,26 @@
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+}
+img{
+  height: 100%;
+}
+.info_left{
+  display: flex;
+  flex-direction: row;
+}
+.left_info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.left_info div {
+  display: flex;
+  height: 47%;
+  align-items: flex-end;
+}
+.userinfo{
+  margin-left: 20px;
+  margin-top: 10px;
+}

@@ -1,6 +1,8 @@
 import { NavBar, Toast } from '@nutui/nutui-react';
 import { Left, Share, Close } from '@nutui/icons-react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+
 import { SearchBar, Button } from '@nutui/nutui-react';
 import "./users.scss"
 import { useState,useEffect } from 'react';
@@ -8,6 +10,11 @@ import request from '../../utils/axios'
 
 
 function LisItem({users}) {
+    const navigate = useNavigate();
+
+    const goToAboutPage = (user) => {
+        navigate("/jecz",{state: {user: user}})
+    };
     return (
         <>
             <div className="listIndex">
@@ -22,7 +29,9 @@ function LisItem({users}) {
                                 </div>
                             </div>
                             <div className="info_right">
-                                <Button type="default" size="small">余额充值</Button>
+                                <Button type="default" size="small" onClick={()=>{goToAboutPage(user)}}>
+                                        余额充值
+                                </Button>
                                 <Button type="default" size="small">积分充值</Button>
                             </div>
                         </div>

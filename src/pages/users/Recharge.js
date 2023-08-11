@@ -1,11 +1,29 @@
-import { Toast } from '@nutui/nutui-react';
-import { Form, Button, InputNumber, Input, TextArea, NavBar, Radio } from '@nutui/nutui-react';
+import "./recharge.scss"
+import { useEffect,useState } from 'react';
+import { Form, Button, InputNumber, Input, TextArea, NavBar, Radio, Toast } from '@nutui/nutui-react';
 import { Left, Share, Close } from '@nutui/icons-react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import request from '../../utils/axios'
 
 const App = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const user = location.state.user;
+    const [me, setMe] = useState([]);
+
+    const getMe = async ()=>{
+        const res = await request.get("/station/station/me",{params:{token:localStorage.getItem("token")}})
+        return res;
+    }
+    useEffect(() => {
+        getMe().then((res)=>{
+            setMe(res.data);
+        })
+    },[]);
+
     const onMenuChange = (value: string | number | boolean) => {
+        console.log(location.state)
+
         switch (value) {
             case 'male':
                 break
@@ -13,6 +31,13 @@ const App = () => {
                 break
             default:
         }
+    };
+    const submitSucceed = function (value){
+        request.post("/station/station/recharge",{token:localStorage.getItem("token"),user_id: user.id,...value}).then((response)=>{
+            Toast.show("充值成功");
+        }).catch(function ({response}) {
+            Toast.show(response.data.message);
+        });
     }
     return (
         <>
@@ -34,8 +59,22 @@ const App = () => {
                 </span>
             </NavBar>
 
+            <div className="userinfo">
+                <div className="info_left">
+                    <img src={user.avatar}></img>
+                    <div className="left_info">
+                        <div>{user.nickname}</div>
+                        <div>{user.telephone}</div>
+                    </div>
+                </div>
+                <div className="info_right">
+
+                </div>
+            </div>
+
             <Form
                 labelPosition="right"
+                onFinish={(values) => submitSucceed(values)}
                 footer={
                     <>
                         <Button nativeType="submit" block type="primary">
@@ -46,8 +85,8 @@ const App = () => {
             >
                 <Form.Item label="充值类型" name="gender">
                     <Radio.Group onChange={onMenuChange}>
-                        <Radio value="male">积分 (可用积分: 10000000)</Radio>
-                        <Radio value="female">余额 (可用余额: 100000)</Radio>
+                        <Radio value="male">积分 (可用积分: {me.integral})</Radio>
+                        <Radio value="female">余额 (可用余额: {me.balance})</Radio>
                     </Radio.Group>
                 </Form.Item>
 
