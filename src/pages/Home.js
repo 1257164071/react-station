@@ -83,14 +83,14 @@ const Home = () => {
                         <li>财务管理</li>
                         <ul>
                             <li key="userctrl5">
-                                <Link key="userctr3" to="/ffdksfjds">
-                                    余额管理
+                                <Link key="userctr3" to="/manage">
+                                    财务管理
                                 </Link>
                                 <Right color="#979797" name="right"></Right>
                             </li>
                             <li key="userctrl6">
                                 <Link key="userctr3" to="/ffdksfjds">
-                                    积分管理
+                                    充值管理
                                 </Link>
                                 <Right color="#979797" name="right"></Right>
                             </li>
