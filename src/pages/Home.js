@@ -72,7 +72,7 @@ const Home = () => {
                                 <Right color="#979797" name="right"></Right>
                             </li>
                             <li key="userctrl6">
-                                <Link key="userctr3" to="/ffdksfjds">
+                                <Link key="userctr3" to="/ordersHistory">
                                     历史订单
                                 </Link>
                                 <Right color="#979797" name="right"></Right>

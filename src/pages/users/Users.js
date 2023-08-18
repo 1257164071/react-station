@@ -15,6 +15,9 @@ function LisItem({users}) {
     const goToAboutPage = (user) => {
         navigate("/jecz",{state: {user: user}})
     };
+    const goToOrderPage = (user) => {
+        navigate("/ordersHistory",{state: {user: user}})
+    };
     return (
         <>
             <div className="listIndex">

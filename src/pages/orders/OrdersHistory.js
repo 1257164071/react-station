@@ -23,7 +23,7 @@ const Navbar = function (){
                 onBackClick={(e) => navigate("/")}
             >
                 <span onClick={(e) => Toast.show("标题")}>
-                    订单管理
+                    历史订单管理
                 </span>
             </NavBar>
 
@@ -46,8 +46,11 @@ const Search = ({search,setSearch, tab1value,setTab1value,searchChange})=>{
                 searchChange()
             }}>
                 <div title="全部" value="all"></div>
+                <div title="待发货" value="2"></div>
                 <div title="配送中" value="3"></div>
                 <div title="待收货" value="4"></div>
+                <div title="已完成" value="5"></div>
+                <div title="已取消" value="-1"></div>
             </Tabs>
 
             <SearchBar
@@ -212,17 +215,9 @@ const List = ({orders}) => {
                                 </div>
                             </div>
                         )}
-                        <div className="list_buttom">
-
-                    {/*        <el-button type="primary" v-if="order.status == 2" @click="deliver(order)" disabled size="small">待平台发货</el-button>*/}
-                    {/*    <el-button type="primary" v-if="order.status == 3" @click="community(order)" size="small">社区收货</el-button>*/}
-                    {/*<el-button type="primary" v-if="order.status == 4" @click="done(order)" size="small">用户收货</el-button>*/}
-                    {/*<el-button type="primary" v-if="order.status == 1" disabled @click="" size="small">等待付款</el-button>*/}
-                    {/*<el-button type="primary" v-if="order.status == 0" disabled @click="" size="small">订单取消</el-button>*/}
-                    {/*<el-button type="primary" v-if="order.status == 99" disabled @click="" size="small">订单退款</el-button>*/}
-                    {/*<el-button type="primary" v-if="order.status == 5" disabled @click="" size="small">订单完成</el-button>*/}
-                            <OrderButtom order={order}></OrderButtom>
-                        </div>
+                        {/*<div className="list_buttom">*/}
+                        {/*    <OrderButtom order={order}></OrderButtom>*/}
+                        {/*</div>*/}
                     </div>
                 )}
             </div>
