@@ -54,12 +54,12 @@ const Home = () => {
                                 </Link>
                                 <Right color="#979797" name="right"></Right>
                             </li>
-                            <li key="userctrl4">
-                                <Link key="userctr3" to="/ffdksfjds">
-                                    用户实名
-                                </Link>
-                                <Right color="#979797" name="right"></Right>
-                            </li>
+                            {/*<li key="userctrl4">*/}
+                            {/*    <Link key="userctr3" to="/ffdksfjds">*/}
+                            {/*        用户实名*/}
+                            {/*    </Link>*/}
+                            {/*    <Right color="#979797" name="right"></Right>*/}
+                            {/*</li>*/}
                         </ul>
                     </ol>
                     <ol key="userctrl2">

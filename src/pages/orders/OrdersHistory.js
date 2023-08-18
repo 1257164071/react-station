@@ -1,11 +1,11 @@
 import {NavBar, SearchBar, Toast,Button, Elevator,Cell,Card, Price, Tag,Tabs, Dialog} from '@nutui/nutui-react';
 import { Left, Share, Close } from '@nutui/icons-react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import {useState, useEffect} from "react";
 import request from '../../utils/axios'
 
 import "./orders.scss"
-const Navbar = function (){
+const Navbar = function ({user}){
     const navigate = useNavigate();
     return (
         <>
@@ -23,7 +23,7 @@ const Navbar = function (){
                 onBackClick={(e) => navigate("/")}
             >
                 <span onClick={(e) => Toast.show("标题")}>
-                    历史订单管理
+                    {user.length?'历史订单管理':user.nickname+" ("+user.telephone+") 的订单"}
                 </span>
             </NavBar>
 
@@ -200,7 +200,6 @@ const List = ({orders}) => {
                         <Cell title={"手机号: "+order.telephone} description={"收货地址: " + (order.address==null ? '站点自提':order.address)} extra={"收货人名: "+order.consignee} className="address_info"/>
 
                         <Cell title={order.orderno} description={"下单时间: "+order.create_time} extra={"订单状态: "+order.status_text} className="address_info_2" />
-
                         {/*<div className="text_name" >*/}
                         {/*    <span>  商品列表  </span>*/}
                         {/*</div>*/}
@@ -230,8 +229,15 @@ export default function (){
     const [ search, setSearch ] = useState("");
     const [tab1value, setTab1value] = useState('all');
     const [orders, setOrders] = useState([]);
+    const location = useLocation();
+    const [user, setUser] = useState([]);
     const getList = function (){
-        request.get("/station/station/orders",{"params":{token:localStorage.getItem("token"),telephone:search, status: tab1value}}).then((response)=>{
+        let params = {token:localStorage.getItem("token"),telephone:search, status: tab1value};
+        if (location.state){
+            params['uid'] = location.state.user.id;
+            setUser(location.state.user)
+        }
+        request.get("/station/station/orders",{"params":params}).then((response)=>{
             // setUsers(response['data']['data'])
             setOrders(response['data']['data'])
         })
@@ -242,11 +248,10 @@ export default function (){
 
     useEffect(()=>{
         getList();
-    },[tab1value])
-
+    },[tab1value,user])
     return (
         <>
-            <Navbar />
+            <Navbar user={user}/>
             <Search search={search} setSearch={setSearch} tab1value={tab1value} setTab1value={setTab1value} searchChange={searchChange}/>
             <List orders={orders}/>
         </>

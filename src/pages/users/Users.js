@@ -35,7 +35,7 @@ function LisItem({users}) {
                                 <Button type="default" size="small" onClick={()=>{goToAboutPage(user)}}>
                                         余额充值
                                 </Button>
-                                <Button type="default" size="small">订单管理</Button>
+                                <Button type="default" size="small" onClick={()=>{goToOrderPage(user)}}>订单管理</Button>
                             </div>
                         </div>
                         <div className="user_detail">

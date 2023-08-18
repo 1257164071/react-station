@@ -56,7 +56,7 @@ export default function (){
                 onBackClick={(e) => navigate("/")}
             >
                 <span onClick={(e) => Toast.show("标题")}>
-                    财务管理
+                    用户充值记录
                 </span>
             </NavBar>
             <Cell className="timepicker" title={ date1.length ? `${date1[0]}至${date1[1]}` : '选择日期范围'} onClick={ openSwitch1 } align="center" />
