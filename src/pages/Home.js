@@ -89,8 +89,8 @@ const Home = () => {
                                 <Right color="#979797" name="right"></Right>
                             </li>
                             <li key="userctrl6">
-                                <Link key="userctr3" to="/ffdksfjds">
-                                    充值管理
+                                <Link key="userctr3" to="/managerecord">
+                                    充值记录
                                 </Link>
                                 <Right color="#979797" name="right"></Right>
                             </li>

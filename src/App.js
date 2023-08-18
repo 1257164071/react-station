@@ -146,6 +146,7 @@ import UserList from './pages/users/Users.js'
 import Recharge from './pages/users/Recharge.js'
 import Orders from './pages/orders/Orders.js'
 import Manage from './pages/manage/Manage.js'
+import ManageRecord from './pages/manage/ManageRecord.js'
 import request from './utils/axios'
 
 export default function App(){
@@ -165,7 +166,8 @@ export default function App(){
                 <Route path="/userlist" element={<UserList />} />
                 <Route path="/jecz" element={<Recharge />} />
                 <Route path="/orders" element={<Orders />} />
-                <Route path="/manage" element={<Orders />}></Route>
+                <Route path="/manage" element={<Manage />}></Route>
+                <Route path="/managerecord" element={<ManageRecord />}></Route>
             </Routes>
         </div>
     )

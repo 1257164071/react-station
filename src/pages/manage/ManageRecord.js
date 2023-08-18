@@ -1,4 +1,4 @@
-import "./manage.scss"
+import "./manageRecord.scss"
 import { useState,useEffect } from 'react';
 import { NavBar, Toast, Cell, Tabs, Calendar } from '@nutui/nutui-react';
 import { Left, Share, Close } from '@nutui/icons-react'
@@ -20,7 +20,7 @@ export default function (){
         setIsVisible1(false)
     }
     const getList = function (){
-        request.get("/station/station/manage",{"params":{token:localStorage.getItem("token"),'type': tab1value,'create_time[]': date1[0],'create_time[1]': date1[1]}}).then((response)=>{
+        request.get("/station/station/manageCzjl",{"params":{token:localStorage.getItem("token"),'type': tab1value,'create_time[]': date1[0],'create_time[1]': date1[1]}}).then((response)=>{
             // setUsers(response['data']['data'])
             setList(response['data'])
         })
@@ -81,7 +81,24 @@ export default function (){
             <div className="list">
                 {list.map(item=>
                     <>
-                        <Cell title={item.msg} description={item.create_time} extra={(item.edit=="1"?'+':'-' )+ (tab1value=="recharge"? item.balance : item.integral)} className="address_info"/>
+                        <div className="list_item">
+                            <div className="userinfo">
+                                <div className="info_left">
+                                    <img src={item.user.avatar}></img>
+                                    <div className="left_info">
+                                        <div>{item.user.nickname}</div>
+                                        <div>{item.user.telephone}</div>
+                                    </div>
+                                </div>
+                                <div className="info_right">
+
+                                </div>
+                            </div>
+
+                            <Cell title={item.msg} description={item.create_time} extra={(item.edit=="1"?'+':'-' )+ (tab1value=="recharge"? item.balance : item.integral)} className="address_info">
+                            </Cell>
+
+                        </div>
                     </>
                 )}
             </div>
