@@ -28,7 +28,6 @@ export default function (){
 
     const setChooseValue1 = (param: string) => {
         setDate1([...[param[0][3], param[1][3]]])
-        getList()
     }
 
 
@@ -72,7 +71,6 @@ export default function (){
 
             <Tabs value={tab1value} onChange={(value) => {
                 setTab1value(value)
-                getList()
             }}>
                 <div title="余额记录" value="recharge"></div>
                 <div title="积分记录" value="integral"></div>

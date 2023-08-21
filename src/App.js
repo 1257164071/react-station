@@ -139,7 +139,7 @@ export default function Gallery(){
 
 import { useState,useEffect } from 'react';
 import { sculptureList } from './data.js';
-import { Routes, Route, Link, useLocation } from "react-router-dom"
+import { Routes, Route, Link, useLocation, Switch, Redirect } from "react-router-dom"
 import '@nutui/nutui-react/dist/style.css'
 import Home from './pages/Home'
 import UserList from './pages/users/Users.js'
@@ -163,7 +163,7 @@ export default function App(){
     },[]);
     return (
         <div className="App"  style={{ height: "100%" }}>
-            <Routes>
+            <Routes >
                 <Route path="/" element={<Home />} />
                 <Route path="/userlist" element={<UserList />} />
                 <Route path="/jecz" element={<Recharge />} />

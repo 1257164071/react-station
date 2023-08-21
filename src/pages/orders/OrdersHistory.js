@@ -23,7 +23,7 @@ const Navbar = function ({user}){
                 onBackClick={(e) => navigate("/")}
             >
                 <span onClick={(e) => Toast.show("标题")}>
-                    {user.length?'历史订单管理':user.nickname+" ("+user.telephone+") 的订单"}
+                    {user.nickname == undefined?'历史订单管理':user.nickname+" ("+user.telephone+") 的订单"}
                 </span>
             </NavBar>
 

@@ -1,6 +1,6 @@
 import "./recharge.scss"
 import { useEffect,useState } from 'react';
-import { Form, Button, InputNumber, Input, TextArea, NavBar, Radio, Toast } from '@nutui/nutui-react';
+import { Form, Button, InputNumber, Input, TextArea, NavBar, Radio, Toast,SearchBar } from '@nutui/nutui-react';
 import { Left, Share, Close } from '@nutui/icons-react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import request from '../../utils/axios'
@@ -8,24 +8,50 @@ import request from '../../utils/axios'
 const App = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const user = location.state.user;
+    const [user, setUser] = useState({});
     const [me, setMe] = useState([]);
+    const [ search, setSearch ] = useState("");
 
+    function change(val, e) {
+        console.log(val)
+        setSearch(val)
+    }
+    const userget = async ()=>{
+        const res = await request.get("/station/station/users",{"params":{token:localStorage.getItem("token"),'telephone':search}})
+        return res;
+    }
+
+    function submit() {
+        console.log('sdfds')
+        // getList();
+        userget().then((response)=>{
+            if (response['data']['data'].length){
+                setUser(response['data']['data'][0]);
+            }
+        })
+
+    }
     const getMe = async ()=>{
         const res = await request.get("/station/station/me",{params:{token:localStorage.getItem("token")}})
         return res;
     }
     useEffect(() => {
+
+        if(location.state && !Object.keys(user).length){
+            setUser(location.state.user);
+        }
+
         getMe().then((res)=>{
             setMe(res.data);
         })
-    },[]);
+    },[user]);
 
     const onMenuChange = (value: string | number | boolean) => {
         console.log(location.state)
 
         switch (value) {
             case 'male':
+                
                 break
             case 'female':
                 break
@@ -33,11 +59,31 @@ const App = () => {
         }
     };
     const submitSucceed = function (value){
+        if (!Object.keys(user).length){
+            Toast.show("请先搜索充值用户")
+            return;
+        }
+
         request.post("/station/station/recharge",{token:localStorage.getItem("token"),user_id: user.id,...value}).then((response)=>{
             Toast.show("充值成功");
         }).catch(function ({response}) {
             Toast.show(response.data.message);
         });
+    }
+    let userInfo = <></>;
+    if (Object.keys(user).length){
+        userInfo = <div className="userinfo">
+            <div className="info_left">
+                <img src={user.avatar}></img>
+                <div className="left_info">
+                    <div>{user.nickname}</div>
+                    <div>{user.telephone}</div>
+                </div>
+            </div>
+            <div className="info_right">
+
+            </div>
+        </div>
     }
     return (
         <>
@@ -58,20 +104,13 @@ const App = () => {
                     用户充值
                 </span>
             </NavBar>
-
-            <div className="userinfo">
-                <div className="info_left">
-                    <img src={user.avatar}></img>
-                    <div className="left_info">
-                        <div>{user.nickname}</div>
-                        <div>{user.telephone}</div>
-                    </div>
-                </div>
-                <div className="info_right">
-
-                </div>
-            </div>
-
+            <SearchBar
+                //right="搜索"
+                onChange={(val, e) => change(val, e)}
+                onSearch={submit}
+                placeholder="请输入手机号搜索"
+            />
+            {userInfo}
             <Form
                 labelPosition="right"
                 onFinish={(values) => submitSucceed(values)}

@@ -1,7 +1,8 @@
 import axios from "axios"
 // 创建axios实例
 const instance = axios.create({
-    baseURL: 'http://127.0.0.1:8083',
+    // baseURL: 'http://127.0.0.1:8083',
+    baseURL: 'https://hjw.hj0539.com',
     timeout: 1000,
 });
 // 添加请求拦截器

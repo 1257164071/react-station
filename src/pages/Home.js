@@ -7,14 +7,17 @@ import request from '../utils/axios'
 import { useState,useEffect } from 'react';
 
 const Home = () => {
-    const logo = "http://hjw.hj0539.com/static/images/left-top.png"
+    const logo = "https://hjw.hj0539.com/static/images/left-top.png"
     const [station, setStation] = useState([]);
 
     const getData = async ()=>{
         const res = await request.get("/station/station/index",{"params":{token:localStorage.getItem("token")}});
         return res;
     }
-
+    const backaaa = function (){
+        console.log('dsfsf')
+        window.wx.miniProgram.navigateBack({url:'pages/my/index'})
+    }
     useEffect(() => {
         getData().then((res)=>{
             setStation(res['data'])
@@ -79,7 +82,7 @@ const Home = () => {
                             </li>
                         </ul>
                     </ol>
-                    <ol key="userctrl3">
+                    <ol key="userctrl31">
                         <li>财务管理</li>
                         <ul>
                             <li key="userctrl5">
@@ -92,6 +95,17 @@ const Home = () => {
                                 <Link key="userctr3" to="/managerecord">
                                     充值记录
                                 </Link>
+                                <Right color="#979797" name="right"></Right>
+                            </li>
+                        </ul>
+                    </ol>
+                    <ol key="userctrl32">
+                        <li>系统功能</li>
+                        <ul>
+                            <li key="userctrl7" onClick={function (){backaaa()}}>
+                                <a key="userctr3" to="/managerecord">
+                                    返回用户端
+                                </a>
                                 <Right color="#979797" name="right"></Right>
                             </li>
                         </ul>
